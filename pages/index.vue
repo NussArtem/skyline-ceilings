@@ -5,9 +5,11 @@
       <div class="banner-image">
         <img src="/images/hero-ceiling.jpg" :alt="$t('home.heroAlt')" id="hero-img" />
         <div class="banner-overlay">
-          <div class="banner-text">
-            <h1>{{ $t('home.heroTitle') }}</h1>
-            <p>{{ $t('home.heroSubtitle') }}</p>
+          <div class="container">
+            <div class="banner-text">
+              <h1>{{ $t('home.heroTitle') }}</h1>
+              <p>{{ $t('home.heroSubtitle') }}</p>
+            </div>
           </div>
         </div>
       </div>
