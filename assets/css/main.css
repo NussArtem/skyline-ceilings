@@ -1506,7 +1506,7 @@ a:hover {
   padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
   padding-left: calc(var(--spacing-unit) * 7.5) !important;
   margin-bottom: calc(var(--spacing-unit) * 1.5);
-  position: relative;
+    position: relative;
   text-align: left;
   line-height: 1.75;
   transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1578,7 +1578,7 @@ a:hover {
 
 .feature-list li:before {
   content: '◆';
-  position: absolute;
+    position: absolute;
   left: calc(var(--spacing-unit) * 1.25);
   top: 50%;
   transform: translateY(-50%);
@@ -2173,7 +2173,7 @@ a:hover {
 }
 
 .type-card h3 a {
-  color: var(--color-primary);
+    color: var(--color-primary);
   transition: color 0.3s ease;
   display: inline-block;
   position: relative;
@@ -2182,8 +2182,8 @@ a:hover {
 
 .type-card p {
   font-size: 0.9375rem;
-  color: var(--color-text-light);
-  margin: 0;
+    color: var(--color-text-light);
+    margin: 0;
   line-height: 1.7;
 }
 
