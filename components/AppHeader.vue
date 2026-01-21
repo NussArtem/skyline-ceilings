@@ -1,14 +1,14 @@
 <template>
-  <header class="header">
+  <header class="header" :class="{ 'o-header': true, '-active': isMobileMenuOpen }">
     <div class="header-top">
       <div class="container">
-        <div class="header-top-content">
-          <div class="header-left">
+        <div class="header-top-content o-header__content">
+          <div class="header-left o-header__left">
+            <div class="logo">
+              <NuxtLink :to="localePath('/')" @click="handleLogoClick">SkyLine Ceilings</NuxtLink>
+            </div>
             <div class="working-hours">{{ $t('header.workingHours') }}</div>
             <a href="tel:+34662484848" class="phone">{{ $t('header.phone') }}</a>
-          </div>
-          <div class="logo">
-            <NuxtLink :to="localePath('/')" @click="handleLogoClick">SkyLine Ceilings</NuxtLink>
           </div>
           <div class="header-right">
             <div class="language-switcher">
@@ -29,90 +29,212 @@
     </div>
     <nav class="main-nav">
       <div class="container">
-        <ul class="nav-menu">
-          <li class="nav-item dropdown">
-            <NuxtLink :to="localePath('/')">{{ $t('nav.tissueCeilings') }}</NuxtLink>
-            <ul class="dropdown-menu">
-              <li>
-                <NuxtLink :to="localePath('/shadow-ceilings')">{{ $t('nav.shadow') }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/floating-ceilings')">{{ $t('nav.floating') }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/multi-level-ceilings')">{{
-                  $t('nav.multiLevel')
-                }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/printed-ceilings')">{{ $t('nav.printed') }}</NuxtLink>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <NuxtLink :to="localePath('/lighting-solutions')">{{
-              $t('nav.lightingSolutions')
-            }}</NuxtLink>
-            <ul class="dropdown-menu">
-              <li>
-                <NuxtLink :to="localePath('/linear-lighting')">{{
-                  $t('nav.linearLighting')
-                }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/track-lighting')">{{
-                  $t('nav.trackLighting')
-                }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/spotlights')">{{ $t('nav.spotlights') }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/chandeliers')">{{ $t('nav.chandeliers') }}</NuxtLink>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <NuxtLink :to="localePath('/gallery')">{{ $t('nav.gallery') }}</NuxtLink>
-          </li>
-          <li class="nav-item">
-            <NuxtLink :to="localePath('/prices')">{{ $t('nav.prices') }}</NuxtLink>
-          </li>
-          <li class="nav-item dropdown">
-            <NuxtLink :to="localePath('/innovations')">{{ $t('nav.innovations') }}</NuxtLink>
-            <ul class="dropdown-menu">
-              <li>
-                <NuxtLink :to="localePath('/quiet-walls')">{{ $t('nav.quietWalls') }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/hidden-hatches')">{{
-                  $t('nav.hiddenHatches')
-                }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/ventilation')">{{ $t('nav.ventilation') }}</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink :to="localePath('/hidden-curtains')">{{
-                  $t('nav.hiddenCurtains')
-                }}</NuxtLink>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <NuxtLink :to="localePath('/about')">{{ $t('nav.about') }}</NuxtLink>
-          </li>
-        </ul>
+        <button 
+          class="mobile-menu-toggle m-headerBtn" 
+          :class="{ '-active': isMobileMenuOpen }"
+          @click="toggleMobileMenu"
+          :aria-expanded="isMobileMenuOpen"
+          data-header="burger"
+          aria-label="Toggle menu"
+        >
+          <span class="a-burger">
+            <span class="a-burger__default"></span>
+            <span class="a-burger__close a-cross"></span>
+          </span>
+        </button>
+        <div class="mobile-menu o-menu" :class="{ '-active': isMobileMenuOpen }" data-module-menu="menu">
+          <div class="mobile-menu__background o-menu__background"></div>
+          <div class="mobile-menu__container o-menu__container">
+            <div class="o-menu__row row">
+              <div class="mobile-menu__content o-menu__content">
+                <ul class="mobile-menu__list o-menu__list" :class="{ '-skew': isMobileMenuOpen }">
+                  <li class="nav-item">
+                    <NuxtLink :to="localePath('/')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                      <span class="a-buttonField__text a-buttonText">{{ $t('nav.tissueCeilings') }}</span>
+                    </NuxtLink>
+                    <ul class="dropdown-menu" v-show="isDropdownOpen[0]">
+                      <li>
+                        <NuxtLink :to="localePath('/shadow-ceilings')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.shadow') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/floating-ceilings')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.floating') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/multi-level-ceilings')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.multiLevel') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/printed-ceilings')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.printed') }}</span>
+                        </NuxtLink>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item dropdown" :class="{ 'active': isDropdownOpen[1] }">
+                    <NuxtLink :to="localePath('/lighting-solutions')" @click.prevent="toggleDropdown(1)" class="-menu a-button a-buttonField" data-menu="button">
+                      <span class="a-buttonField__text a-buttonText">{{ $t('nav.lightingSolutions') }}</span>
+                    </NuxtLink>
+                    <ul class="dropdown-menu" v-show="isDropdownOpen[1]">
+                      <li>
+                        <NuxtLink :to="localePath('/linear-lighting')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.linearLighting') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/track-lighting')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.trackLighting') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/spotlights')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.spotlights') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/chandeliers')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.chandeliers') }}</span>
+                        </NuxtLink>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <NuxtLink :to="localePath('/gallery')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                      <span class="a-buttonField__text a-buttonText">{{ $t('nav.gallery') }}</span>
+                    </NuxtLink>
+                  </li>
+                  <li class="nav-item">
+                    <NuxtLink :to="localePath('/prices')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                      <span class="a-buttonField__text a-buttonText">{{ $t('nav.prices') }}</span>
+                    </NuxtLink>
+                  </li>
+                  <li class="nav-item dropdown" :class="{ 'active': isDropdownOpen[2] }">
+                    <NuxtLink :to="localePath('/innovations')" @click.prevent="toggleDropdown(2)" class="-menu a-button a-buttonField" data-menu="button">
+                      <span class="a-buttonField__text a-buttonText">{{ $t('nav.innovations') }}</span>
+                    </NuxtLink>
+                    <ul class="dropdown-menu" v-show="isDropdownOpen[2]">
+                      <li>
+                        <NuxtLink :to="localePath('/quiet-walls')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.quietWalls') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/hidden-hatches')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.hiddenHatches') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/ventilation')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.ventilation') }}</span>
+                        </NuxtLink>
+                      </li>
+                      <li>
+                        <NuxtLink :to="localePath('/hidden-curtains')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                          <span class="a-buttonField__text a-buttonText">{{ $t('nav.hiddenCurtains') }}</span>
+                        </NuxtLink>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <NuxtLink :to="localePath('/about')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
+                      <span class="a-buttonField__text a-buttonText">{{ $t('nav.about') }}</span>
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   </header>
 </template>
 
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
 const { locale, locales, setLocale } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const localePath = useLocalePath();
 const router = useRouter();
+
+const isMobileMenuOpen = ref(false);
+const isDropdownOpen = ref({});
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+  if (isMobileMenuOpen.value) {
+    document.body.style.overflow = 'hidden';
+    // Добавляем класс для анимации пунктов меню
+    setTimeout(() => {
+      const navItems = document.querySelectorAll('.o-menu__list .nav-item');
+      navItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.08}s`;
+        item.classList.add('animate-in');
+      });
+    }, 100);
+  } else {
+    document.body.style.overflow = '';
+    // Удаляем классы анимации
+    const navItems = document.querySelectorAll('.o-menu__list .nav-item');
+    navItems.forEach((item) => {
+      item.classList.remove('animate-in');
+    });
+  }
+};
+
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false;
+  document.body.style.overflow = '';
+    // Удаляем классы анимации
+    const navItems = document.querySelectorAll('.o-menu__list .nav-item');
+    navItems.forEach((item) => {
+      item.classList.remove('animate-in');
+    });
+};
+
+// Закрываем меню при клике на ссылку
+const handleLinkClick = () => {
+  if (window.innerWidth <= 768) {
+    closeMobileMenu();
+  }
+};
+
+// Обработка dropdown в мобильном меню
+const toggleDropdown = (index) => {
+  if (window.innerWidth <= 768) {
+    isDropdownOpen.value[index] = !isDropdownOpen.value[index];
+    // Добавляем/удаляем класс active для стилизации
+    const dropdownItems = document.querySelectorAll('.o-menu__list .nav-item.dropdown');
+    if (dropdownItems[index]) {
+      if (isDropdownOpen.value[index]) {
+        dropdownItems[index].classList.add('active');
+      } else {
+        dropdownItems[index].classList.remove('active');
+      }
+    }
+  }
+};
+
+// Закрываем меню при изменении размера окна
+const handleResize = () => {
+  if (window.innerWidth > 768) {
+    closeMobileMenu();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('resize', handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
+  document.body.style.overflow = '';
+});
 
 const availableLocales = computed(() => {
   return locales.value;
