@@ -213,6 +213,7 @@
 
 <script setup>
 import { useSEO } from '~/composables/useSEO';
+import { onMounted, onBeforeUnmount } from 'vue';
 
 const { t } = useI18n();
 const localePath = useLocalePath();
@@ -327,4 +328,6 @@ const ceilingTypes = computed(() => {
     },
   ];
 });
+
+// Анимации теперь работают глобально через layout
 </script>
