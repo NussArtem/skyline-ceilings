@@ -28,22 +28,22 @@
         </div>
 
         <div class="types-grid mt-2">
-          <div class="type-card">
-            <h3><NuxtLink :to="localePath('/quiet-walls')">{{ $t('innovations.quietWallsTitle') }}</NuxtLink></h3>
+          <NuxtLink :to="localePath('/quiet-walls')" class="type-card">
+            <h3>{{ $t('innovations.quietWallsTitle') }}</h3>
             <p>{{ $t('innovations.quietWallsDesc') }}</p>
-          </div>
-          <div class="type-card">
-            <h3><NuxtLink :to="localePath('/hidden-hatches')">{{ $t('innovations.hiddenHatchesTitle') }}</NuxtLink></h3>
+          </NuxtLink>
+          <NuxtLink :to="localePath('/hidden-hatches')" class="type-card">
+            <h3>{{ $t('innovations.hiddenHatchesTitle') }}</h3>
             <p>{{ $t('innovations.hiddenHatchesDesc') }}</p>
-          </div>
-          <div class="type-card">
-            <h3><NuxtLink :to="localePath('/ventilation')">{{ $t('innovations.ventilationTitle') }}</NuxtLink></h3>
+          </NuxtLink>
+          <NuxtLink :to="localePath('/ventilation')" class="type-card">
+            <h3>{{ $t('innovations.ventilationTitle') }}</h3>
             <p>{{ $t('innovations.ventilationDesc') }}</p>
-          </div>
-          <div class="type-card">
-            <h3><NuxtLink :to="localePath('/hidden-curtains')">{{ $t('innovations.hiddenCurtainsTitle') }}</NuxtLink></h3>
+          </NuxtLink>
+          <NuxtLink :to="localePath('/hidden-curtains')" class="type-card">
+            <h3>{{ $t('innovations.hiddenCurtainsTitle') }}</h3>
             <p>{{ $t('innovations.hiddenCurtainsDesc') }}</p>
-          </div>
+          </NuxtLink>
         </div>
 
         <div class="content-text mt-2">

@@ -50,38 +50,22 @@
         </div>
 
         <div class="types-grid mt-2">
-          <div class="type-card">
-            <h3>
-              <NuxtLink :to="localePath('/linear-lighting')">{{
-                $t('lightingSolutions.linearTitle')
-              }}</NuxtLink>
-            </h3>
+          <NuxtLink :to="localePath('/linear-lighting')" class="type-card">
+            <h3>{{ $t('lightingSolutions.linearTitle') }}</h3>
             <p>{{ $t('lightingSolutions.linearDesc') }}</p>
-          </div>
-          <div class="type-card">
-            <h3>
-              <NuxtLink :to="localePath('/track-lighting')">{{
-                $t('lightingSolutions.trackTitle')
-              }}</NuxtLink>
-            </h3>
+          </NuxtLink>
+          <NuxtLink :to="localePath('/track-lighting')" class="type-card">
+            <h3>{{ $t('lightingSolutions.trackTitle') }}</h3>
             <p>{{ $t('lightingSolutions.trackDesc') }}</p>
-          </div>
-          <div class="type-card">
-            <h3>
-              <NuxtLink :to="localePath('/spotlights')">{{
-                $t('lightingSolutions.spotlightsTitle')
-              }}</NuxtLink>
-            </h3>
+          </NuxtLink>
+          <NuxtLink :to="localePath('/spotlights')" class="type-card">
+            <h3>{{ $t('lightingSolutions.spotlightsTitle') }}</h3>
             <p>{{ $t('lightingSolutions.spotlightsDesc') }}</p>
-          </div>
-          <div class="type-card">
-            <h3>
-              <NuxtLink :to="localePath('/chandeliers')">{{
-                $t('lightingSolutions.chandeliersTitle')
-              }}</NuxtLink>
-            </h3>
+          </NuxtLink>
+          <NuxtLink :to="localePath('/chandeliers')" class="type-card">
+            <h3>{{ $t('lightingSolutions.chandeliersTitle') }}</h3>
             <p>{{ $t('lightingSolutions.chandeliersDesc') }}</p>
-          </div>
+          </NuxtLink>
         </div>
 
         <div class="cta-section">

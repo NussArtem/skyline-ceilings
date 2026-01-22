@@ -132,7 +132,7 @@
             <div class="o-menu__row row">
               <div class="mobile-menu__content o-menu__content">
                 <ul class="mobile-menu__list o-menu__list" :class="{ '-skew': isMobileMenuOpen }">
-                  <li class="nav-item dropdown" :class="{ 'active': isDropdownOpen[0] }">
+                  <li class="nav-item dropdown" :class="{ 'active': isDropdownOpen[0], 'animate-in': isMobileMenuOpen }">
                     <div class="dropdown-item-wrapper">
                       <NuxtLink 
                         :to="localePath('/')" 
@@ -175,7 +175,7 @@
                       </li>
                     </ul>
                   </li>
-                  <li class="nav-item dropdown" :class="{ 'active': isDropdownOpen[1] }">
+                  <li class="nav-item dropdown" :class="{ 'active': isDropdownOpen[1], 'animate-in': isMobileMenuOpen }">
                     <div class="dropdown-item-wrapper">
                       <NuxtLink 
                         :to="localePath('/lighting-solutions')" 
@@ -218,17 +218,17 @@
                       </li>
                     </ul>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" :class="{ 'animate-in': isMobileMenuOpen }">
                     <NuxtLink :to="localePath('/gallery')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
                       <span class="a-buttonField__text a-buttonText">{{ $t('nav.gallery') }}</span>
                     </NuxtLink>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" :class="{ 'animate-in': isMobileMenuOpen }">
                     <NuxtLink :to="localePath('/prices')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
                       <span class="a-buttonField__text a-buttonText">{{ $t('nav.prices') }}</span>
                     </NuxtLink>
                   </li>
-                  <li class="nav-item dropdown" :class="{ 'active': isDropdownOpen[2] }">
+                  <li class="nav-item dropdown" :class="{ 'active': isDropdownOpen[2], 'animate-in': isMobileMenuOpen }">
                     <div class="dropdown-item-wrapper">
                       <NuxtLink 
                         :to="localePath('/innovations')" 
@@ -271,7 +271,7 @@
                       </li>
                     </ul>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" :class="{ 'animate-in': isMobileMenuOpen }">
                     <NuxtLink :to="localePath('/about')" @click="handleLinkClick" class="-menu a-button a-buttonField" data-menu="button">
                       <span class="a-buttonField__text a-buttonText">{{ $t('nav.about') }}</span>
                     </NuxtLink>

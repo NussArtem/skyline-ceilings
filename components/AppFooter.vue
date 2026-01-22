@@ -20,8 +20,12 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>{{ $t('footer.rights') }}</p>
+        <p>{{ $t('footer.rights', { year: getYear() }) }}</p>
       </div>
     </div>
   </footer>
 </template>
+
+<script setup>
+const getYear = () => new Date().getFullYear();
+</script>

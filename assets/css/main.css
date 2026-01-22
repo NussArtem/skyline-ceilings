@@ -645,8 +645,8 @@ a:hover {
   height: 100vh;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 2);
@@ -679,12 +679,23 @@ a:hover {
 
 .mobile-menu__list.-skew,
 .o-menu__list.-skew {
-  transform: skewY(-2deg);
+  transform: skewY(-2deg) translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+  perspective: 1000px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
 }
 
 .mobile-menu__list.-skew .nav-item,
 .o-menu__list.-skew .nav-item {
-  transform: skewY(2deg);
+  transform: skewY(2deg) translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: transform;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
 }
 
 /* Menu Button Styles */
@@ -711,6 +722,11 @@ a:hover {
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
   white-space: nowrap;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  transform: translate3d(0, 0, 0);
+  text-shadow: 0 0 0 currentColor;
 }
 
 .menu-button:hover .menu-button__text,
@@ -825,6 +841,32 @@ a:hover {
   filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
 }
 
+@media (min-width: 1025px) {
+  .nav-menu .dropdown-menu {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .nav-menu .dropdown-menu::after {
+    border-bottom-color: #ffffff;
+  }
+}
+
+/* Mobile menu: убираем фон/подложку у подменю, чтобы не было черного квадрата */
+.mobile-menu .dropdown-menu,
+.o-menu .dropdown-menu,
+.mobile-menu__list .dropdown-menu,
+.o-menu__list .dropdown-menu {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 /* Десктопные hover эффекты - только для обычного меню, не для мобильного */
 .nav-menu .nav-item:hover .dropdown-menu,
 .nav-menu .nav-item.dropdown:hover .dropdown-menu,
@@ -850,7 +892,7 @@ a:hover {
 
 .dropdown-menu li {
   position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: none;
   transition: all 0.3s ease;
 }
 
@@ -1202,6 +1244,7 @@ a:hover {
 .section-header {
   text-align: left;
   margin-bottom: calc(var(--spacing-unit) * 6);
+  padding-bottom: calc(var(--spacing-unit) * 1.25);
   max-width: 1400px;
   position: relative;
   z-index: 1;
@@ -1211,7 +1254,7 @@ a:hover {
 .section-header::after {
   content: '';
   position: absolute;
-  bottom: calc(var(--spacing-unit) * -2);
+  bottom: 0;
   left: 0;
   width: 0;
   height: 3px;
@@ -1277,6 +1320,26 @@ a:hover {
   transform: translateX(-50%);
   opacity: 0.4;
   animation: linePulse 3s ease-in-out infinite;
+}
+
+@media (min-width: 1025px) {
+  /* Match right column width and keep hover off the center line */
+  .content-grid > .content-text:first-child .feature-list {
+    max-width: 90%;
+    margin-right: auto;
+    transform-origin: left center;
+  }
+
+  /* Match lead block width to left lists */
+  .content-grid > .content-text:first-child .lead {
+    max-width: 90%;
+    margin-right: auto;
+  }
+
+  .content-grid > .content-text:first-child .feature-list li:hover {
+    transform: translateY(-12px) scale(1.03) !important;
+    padding-left: calc(var(--spacing-unit) * 7) !important;
+  }
 }
 
 /* Убираем вертикальную линию в content-grid на мобильных и планшетах */
@@ -1452,7 +1515,7 @@ a:hover {
 
 .feature-list:hover {
   background: transparent;
-  border-color: var(--color-border);
+  border: none;
 }
 
 /* Списки в grid должны быть одинаковой ширины */
@@ -1516,13 +1579,23 @@ a:hover {
   background: 
     linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0%, transparent 50%),
     linear-gradient(225deg, rgba(0, 0, 0, 0.02) 0%, transparent 50%);
-  border: 2px solid transparent;
+  border: none;
   overflow: visible;
   backdrop-filter: blur(10px);
-  box-shadow: 
-    0 4px 15px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: none;
   transform: translateY(0) scale(1);
+}
+
+/* Улучшение качества текста списков на мобильных и планшетах */
+@media (max-width: 1024px) {
+  .content-text ul,
+  .content-text ol,
+  .content-text li,
+  .feature-list,
+  .feature-list li {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 }
 
 .feature-list li:last-child {
@@ -1558,8 +1631,7 @@ a:hover {
     0 0 50px rgba(0, 0, 0, 0.2),
     0 0 100px rgba(var(--color-primary-rgb), 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  border: 2px solid var(--color-primary);
-  border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%) 1;
+  border: none;
   color: var(--color-text);
   padding-left: calc(var(--spacing-unit) * 8) !important;
   z-index: 100;
@@ -1665,40 +1737,26 @@ a:hover {
   margin-right: 0;
   margin-bottom: calc(var(--spacing-unit) * 0.5);
   padding-left: 0;
-  padding-top: calc(var(--spacing-unit) * 0.75);
-  padding-bottom: calc(var(--spacing-unit) * 0.75);
-  padding-right: calc(var(--spacing-unit) * 1);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
   width: 100%;
   box-sizing: border-box;
-  border-left: 3px solid transparent;
-  background: linear-gradient(to right, 
-    rgba(10, 10, 10, 0.03) 0%,
-    transparent 100%);
-  border-radius: 0 8px 8px 0;
+  border: none;
+  background: none;
+  border-radius: 0;
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .feature-list ul::before,
 .feature-list li ul::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, 
-    var(--color-primary) 0%,
-    var(--color-accent) 100%);
-  border-radius: 2px 0 0 2px;
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
+  display: none;
 }
 
 .feature-list ul:hover::before,
 .feature-list li ul:hover::before {
-  opacity: 1;
-  box-shadow: 0 0 8px rgba(10, 10, 10, 0.2);
+  display: none;
 }
 
 .feature-list ul li,
@@ -1717,12 +1775,10 @@ a:hover {
   background: 
     linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, transparent 50%),
     linear-gradient(225deg, rgba(0, 0, 0, 0.01) 0%, transparent 50%);
-  border: 2px solid transparent;
+  border: none;
   overflow: visible;
   backdrop-filter: blur(10px);
-  box-shadow: 
-    0 2px 8px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: none;
   transform: translateY(0) scale(1);
   width: 100%;
   box-sizing: border-box;
@@ -1783,8 +1839,7 @@ a:hover {
     0 0 40px rgba(0, 0, 0, 0.15),
     0 0 80px rgba(var(--color-primary-rgb), 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  border: 2px solid var(--color-primary);
-  border-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%) 1;
+  border: none;
   color: var(--color-text);
   padding-left: calc(var(--spacing-unit) * 8) !important;
   z-index: 100;
@@ -2110,14 +2165,8 @@ a:hover {
 }
 
 .types-grid::before {
-  content: '';
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--color-border) 50%, transparent 100%);
+  content: none !important;
+  display: none !important;
 }
 
 .type-card {
@@ -2132,6 +2181,11 @@ a:hover {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transform: skewY(-2deg);
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  touch-action: manipulation;
 }
 
 .type-card::before {
@@ -2180,8 +2234,75 @@ a:hover {
   text-decoration: none;
 }
 
+/* Когда карточка сама является ссылкой, скрываем вложенную ссылку */
+a.type-card h3 a {
+  display: none;
+}
+
+a.type-card h3 {
+  color: var(--color-primary);
+}
+
+/* Делаем всю карточку кликабельной на мобильных и планшетах */
+@media (max-width: 1024px) {
+  .type-card {
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
+  }
+
+  .type-card h3 {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+  }
+
+  .type-card h3 a {
+    display: block;
+    width: 100%;
+    position: relative;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Карточка теперь сама является ссылкой - делаем её полностью кликабельной */
+  .type-card {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .type-card h3 {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    color: var(--color-primary);
+  }
+
+  .type-card h3 a {
+    display: none; /* Скрываем вложенную ссылку, так как карточка сама ссылка */
+  }
+
+  .type-card p {
+    position: relative;
+    z-index: 1;
+    color: var(--color-text-light);
+  }
+
+  /* Визуальная обратная связь при нажатии */
+  .type-card:active {
+    opacity: 0.8;
+    transform: skewY(-2deg) scale(0.98);
+  }
+}
+
 .type-card p {
-  font-size: 0.9375rem;
+    font-size: 0.9375rem;
     color: var(--color-text-light);
     margin: 0;
   line-height: 1.7;
@@ -2315,9 +2436,17 @@ a:hover {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;
     gap: calc(var(--spacing-unit) * 3);
     margin-bottom: calc(var(--spacing-unit) * 3);
+    align-items: start;
+}
+
+.footer-section {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .footer-section h3,
@@ -2325,6 +2454,19 @@ a:hover {
     color: var(--color-bg);
     margin-bottom: calc(var(--spacing-unit) * 1);
     font-weight: 300;
+    text-align: center;
+}
+
+.footer-section p {
+    text-align: center;
+}
+
+/* Центрируем секцию с социальными сетями */
+.footer-section:has(.social-links) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .footer-section p {
@@ -2344,6 +2486,8 @@ a:hover {
 .social-links {
     display: flex;
     gap: calc(var(--spacing-unit) * 1.5);
+    justify-content: center;
+    align-items: center;
 }
 
 .social-links a {
@@ -2377,12 +2521,19 @@ a:hover {
     overflow: auto;
 }
 
+.modal[style*="block"] {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
 .modal-content {
     margin: auto;
     display: block;
     width: 90%;
     max-width: 1200px;
-    margin-top: 5%;
+    max-height: 90vh;
+    object-fit: contain;
     animation: zoom 0.3s;
 }
 
@@ -2896,6 +3047,15 @@ a:hover {
     max-height: none !important;
   }
 
+  /* Убираем десктопную стрелку-треугольник у подменю в мобильном меню */
+  .mobile-menu .dropdown-menu::after,
+  .o-menu .dropdown-menu::after,
+  .mobile-menu__list .dropdown-menu::after,
+  .o-menu__list .dropdown-menu::after {
+    content: none !important;
+    display: none !important;
+  }
+
   /* АКТИВНОЕ СОСТОЯНИЕ - ПОДМЕНЮ ВИДИМО (используется v-show, поэтому просто показываем) */
   .mobile-menu .nav-item.dropdown.active .dropdown-menu,
   .o-menu .nav-item.dropdown.active .dropdown-menu,
@@ -3156,6 +3316,16 @@ a:hover {
     user-select: none;
   }
 
+  /* Активный пункт с подменю: подсветка белым, текст белый */
+  .mobile-menu__list .nav-item.dropdown.active .dropdown-item-wrapper .a-buttonField__text,
+  .mobile-menu__list .nav-item.dropdown.active .dropdown-item-wrapper .a-buttonText,
+  .o-menu__list .nav-item.dropdown.active .dropdown-item-wrapper .a-buttonField__text,
+  .o-menu__list .nav-item.dropdown.active .dropdown-item-wrapper .a-buttonText {
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+  }
+
   /* Убеждаемся, что сама ссылка кликабельна */
   .mobile-menu__list .nav-item .a-button,
   .mobile-menu__list .nav-item .a-buttonField,
@@ -3179,8 +3349,8 @@ a:hover {
   }
 
   .banner-text h1 {
-    font-size: 2rem;
-  }
+        font-size: 2rem;
+    }
 
   .banner-text p {
     font-size: 1rem;
@@ -3517,8 +3687,7 @@ a:hover {
 
 /* CTA Section Modern */
 .cta-section {
-        text-align: center;
-  padding: calc(var(--spacing-unit) * 6) 0;
+  text-align: center;
   margin-top: calc(var(--spacing-unit) * 4);
 }
 
@@ -3805,9 +3974,9 @@ a:hover {
   /* Header на планшете - такой же как на мобильных */
   .header-top {
     padding: calc(var(--spacing-unit) * 0.5) 0;
-  }
+    }
 
-  .header-top-content {
+    .header-top-content {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     gap: calc(var(--spacing-unit) * 0.5);
@@ -3819,7 +3988,7 @@ a:hover {
 
   .header-left {
     display: flex;
-    flex-direction: column;
+        flex-direction: column;
     gap: calc(var(--spacing-unit) * 0.25);
     justify-self: start;
   }
@@ -3834,7 +4003,7 @@ a:hover {
   .logo-link {
     display: flex !important;
     align-items: center;
-    gap: calc(var(--spacing-unit) * 0.5);
+        gap: calc(var(--spacing-unit) * 0.5);
   }
 
   .logo-icon {
@@ -4033,6 +4202,25 @@ a:hover {
 
   .content-section {
     padding: calc(var(--spacing-unit) * 8) 0;
+  }
+
+  /* Comparison Table - центрирование на планшете */
+  .comparison-table-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+  }
+
+  /* Images - stack vertically on tablet */
+  .image-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 1);
+  }
+
+  .gallery-container {
+    grid-template-columns: 1fr;
+    gap: calc(var(--spacing-unit) * 2);
   }
 }
 
@@ -4369,7 +4557,14 @@ a:hover {
   }
 
   .image-gallery {
+    display: flex;
+    flex-direction: column;
     gap: calc(var(--spacing-unit) * 1);
+  }
+
+  .gallery-container {
+    grid-template-columns: 1fr;
+    gap: calc(var(--spacing-unit) * 2);
   }
 
   /* Feature Lists */
@@ -4382,14 +4577,38 @@ a:hover {
     padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 2);
     border-radius: 40px;
     transform: skewY(-2deg);
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
+    display: block;
+    text-decoration: none;
+    color: inherit;
   }
 
   .type-card h3 {
     font-size: 1.125rem;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    color: var(--color-primary);
+  }
+
+  .type-card h3 a {
+    display: none; /* Скрываем вложенную ссылку, так как карточка сама ссылка */
   }
 
   .type-card p {
     font-size: 0.875rem;
+    position: relative;
+    z-index: 1;
+    color: var(--color-text-light);
+  }
+
+  .type-card:active {
+    opacity: 0.8;
+    transform: skewY(-2deg) scale(0.98);
   }
 
   .feature-list li {
@@ -4413,8 +4632,10 @@ a:hover {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     font-size: 0.875rem;
-    margin: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * -1.5);
-    padding: 0 calc(var(--spacing-unit) * 1.5);
+    margin: calc(var(--spacing-unit) * 1.5) auto;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .comparison-table {
@@ -4456,6 +4677,36 @@ a:hover {
   .content-grid .content-images {
     position: relative;
     top: auto;
+  }
+
+  /* Footer - выравнивание на планшете - все по центру */
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: calc(var(--spacing-unit) * 2.5);
+    align-items: start;
+  }
+
+  .footer-section {
+        text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section h3,
+  .footer-section h4,
+  .footer-section p {
+    text-align: center;
+  }
+
+  .footer-section:has(.social-links) {
+    text-align: center;
+    align-items: center;
+  }
+
+  .social-links {
+    justify-content: center;
   }
 }
 
@@ -4555,7 +4806,7 @@ a:hover {
     top: 50% !important;
     transform: translateY(-50%) !important;
     right: calc(var(--spacing-unit) * 0.75) !important;
-  }
+    }
 
     .nav-menu {
         flex-direction: column;
@@ -4641,9 +4892,9 @@ a:hover {
   .section-header h2 {
     font-size: clamp(1.5rem, 8vw, 2rem);
     line-height: 1.2;
-  }
+    }
 
-  .content-grid {
+    .content-grid {
     grid-template-columns: 1fr !important;
     gap: calc(var(--spacing-unit) * 2) !important;
     margin: calc(var(--spacing-unit) * 3) 0;
@@ -4674,7 +4925,7 @@ a:hover {
 
   /* Поднимаем линию section-header::after выше на мобильных (отталкиваем от нижнего элемента) */
   .section-header::after {
-    bottom: calc(var(--spacing-unit) * -1) !important;
+    bottom: 0 !important;
   }
 
   /* Images */
@@ -4702,7 +4953,7 @@ a:hover {
 
   /* Gallery Container - адаптивные стили для мобильных */
   .gallery-container {
-    grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
     gap: calc(var(--spacing-unit) * 1.5);
     margin: calc(var(--spacing-unit) * 2) 0;
     padding: calc(var(--spacing-unit) * 1) 0;
@@ -4758,9 +5009,9 @@ a:hover {
     width: 24px !important;
     height: 24px !important;
     font-size: 0.7rem !important;
-  }
+    }
 
-  .feature-list.two-columns {
+    .feature-list.two-columns {
         grid-template-columns: 1fr;
     gap: calc(var(--spacing-unit) * 0.5);
   }
@@ -4777,15 +5028,60 @@ a:hover {
     padding: calc(var(--spacing-unit) * 1.75) calc(var(--spacing-unit) * 1.5);
     border-radius: 35px;
     transform: skewY(-2deg);
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    touch-action: manipulation;
   }
 
   .type-card h3 {
     font-size: clamp(1.125rem, 5vw, 1.5rem);
     margin-bottom: calc(var(--spacing-unit) * 0.75);
+    position: relative;
+    z-index: 1;
+  }
+
+  .type-card h3 a {
+    display: block;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .type-card h3 a::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    right: -100%;
+    bottom: -100%;
+    z-index: -1;
+  }
+
+  .type-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .type-card h3 a {
+    display: none; /* Скрываем вложенную ссылку, так как карточка сама ссылка */
+  }
+
+  .type-card h3 {
+    color: var(--color-primary);
   }
 
   .type-card p {
     font-size: 0.875rem;
+    position: relative;
+    z-index: 1;
+    color: var(--color-text-light);
+  }
+
+  .type-card:active {
+    opacity: 0.8;
+    transform: skewY(-2deg) scale(0.98);
   }
 
   /* Comparison Table */
@@ -4895,9 +5191,25 @@ a:hover {
   }
 
   .footer-content {
+    display: flex;
     flex-direction: column;
     gap: calc(var(--spacing-unit) * 2);
     text-align: center;
+    align-items: center;
+  }
+
+  /* Центрируем социальные сети на мобильных */
+  .footer-section:has(.social-links),
+  .footer-section:has(.social-links) h4 {
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .social-links {
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100%;
+    margin: 0 auto;
   }
 }
 
@@ -4928,4 +5240,46 @@ a:hover {
     padding: calc(var(--spacing-unit) * 0.625) calc(var(--spacing-unit) * 1.25);
     font-size: 0.8rem;
     }
+}
+
+/* Compact spacing overrides */
+:root {
+  --section-padding-compact: calc(var(--spacing-unit) * 4);
+  --section-header-gap-compact: calc(var(--spacing-unit) * 2);
+  --grid-gap-compact: calc(var(--spacing-unit) * 2.5);
+}
+
+.content-section,
+.section-alt {
+  padding: var(--section-padding-compact) 0;
+}
+
+.content-section:first-of-type {
+  padding-top: calc(var(--spacing-unit) * 6);
+}
+
+.section-header {
+  margin-bottom: var(--section-header-gap-compact);
+}
+
+.content-grid {
+  gap: var(--grid-gap-compact);
+  margin: calc(var(--spacing-unit) * 2.5) 0;
+}
+
+.content-text {
+  padding: calc(var(--spacing-unit) * 1) 0;
+}
+
+.types-grid {
+  gap: calc(var(--spacing-unit) * 2.5);
+  margin: calc(var(--spacing-unit) * 3) 0;
+}
+
+.feature-list {
+  margin: calc(var(--spacing-unit) * 2) 0;
+}
+
+.comparison-table-wrapper {
+  margin: calc(var(--spacing-unit) * 2) 0;
 }

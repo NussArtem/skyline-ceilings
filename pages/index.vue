@@ -194,12 +194,15 @@
           <h2>{{ $t('home.typesTitle') }}</h2>
         </div>
         <div class="types-grid">
-          <div v-for="type in ceilingTypes" :key="type.slug" class="type-card">
-            <h3>
-              <NuxtLink :to="localePath(`/${type.slug}`)">{{ type.title }}</NuxtLink>
-            </h3>
+          <NuxtLink
+            v-for="type in ceilingTypes"
+            :key="type.slug"
+            :to="localePath(`/${type.slug}`)"
+            class="type-card"
+          >
+            <h3>{{ type.title }}</h3>
             <p>{{ type.description }}</p>
-          </div>
+          </NuxtLink>
         </div>
         <div class="cta-section">
           <NuxtLink :to="localePath('/prices')" class="btn btn-primary">{{
