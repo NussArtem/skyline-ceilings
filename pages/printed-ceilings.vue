@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="content-section">
+    <section class="content-section printed-ceilings">
       <div class="container">
         <div class="section-header">
           <h1>{{ $t('printedCeilings.title') }}</h1>

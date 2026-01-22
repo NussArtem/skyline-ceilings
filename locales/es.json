@@ -33,7 +33,13 @@
     "message": "Mensaje",
     "required": "*",
     "requestForMeasurement": "Solicitud de medición",
-    "thankYou": "¡Gracias por su solicitud! Nos pondremos en contacto pronto."
+    "thankYou": "¡Gracias por su solicitud! Nos pondremos en contacto pronto.",
+    "requestSent": "Solicitud enviada. Nos pondremos en contacto pronto."
+  },
+  "validation": {
+    "phoneFormat": "Use el formato internacional, por ejemplo +1234567890",
+    "emailFormat": "Use un email válido, por ejemplo name&#64;example.com",
+    "nameFormat": "Use solo letras"
   },
   "footer": {
     "title": "SkyLine Ceilings",

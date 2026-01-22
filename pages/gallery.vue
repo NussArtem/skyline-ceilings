@@ -14,7 +14,7 @@
           <div
             v-for="(img, index) in galleryImages"
             :key="index"
-            class="gallery-item"
+            class="content-images gallery-card"
             @click="openImageModal(img, galleryImages, index)"
           >
             <img :src="img" :alt="`${$t('gallery.workAlt')} ${index + 1}`" class="gallery-thumb" />
@@ -48,31 +48,3 @@ const openImageModal = (src, allImages, index) => {
 };
 </script>
 
-<style scoped>
-.gallery-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: calc(var(--spacing-unit) * 1.5);
-  padding: calc(var(--spacing-unit) * 3) 0;
-}
-
-.gallery-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0;
-  cursor: pointer;
-  transition: opacity 0.15s ease;
-  border: 1px solid var(--color-border);
-}
-
-.gallery-item:hover {
-  opacity: 0.9;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  display: block;
-}
-</style>
