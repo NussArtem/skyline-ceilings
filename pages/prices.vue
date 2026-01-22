@@ -7,12 +7,12 @@
         </div>
 
         <div class="content-text">
-          <p class="lead">
+          <p class="lead no-margin-bottom">
             {{ $t('prices.lead') }}
           </p>
         </div>
 
-        <div class="comparison-table-wrapper">
+        <div class="comparison-table-wrapper no-margin">
           <table class="comparison-table">
             <thead>
               <tr>
@@ -31,7 +31,7 @@
           </table>
         </div>
 
-        <div class="content-text mt-2">
+        <div class="content-text notes-section">
           <h3>{{ $t('prices.notesTitle') }}</h3>
           <ul class="feature-list">
             <li>{{ $t('prices.note1') }}</li>

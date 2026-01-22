@@ -7,6 +7,7 @@
     <AppFooter />
     <AppContactModal />
     <AppImageModal />
+    <AppScrollTopButton />
     <AppCTAButton />
   </div>
 </template>

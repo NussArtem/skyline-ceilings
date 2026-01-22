@@ -27,7 +27,7 @@
               {{ $t('home.aboutLead') }}
             </p>
             <p>{{ $t('home.aboutText') }}</p>
-            <ul class="feature-list">
+            <ul class="feature-list no-margin-bottom">
               <li>{{ $t('home.aboutFeature1') }}</li>
               <li>{{ $t('home.aboutFeature2') }}</li>
               <li>{{ $t('home.aboutFeature3') }}</li>
@@ -86,7 +86,7 @@
     </section>
 
     <!-- Technology Section -->
-    <section class="content-section" key="technology">
+    <section class="content-section tech-section" key="technology">
       <div class="container">
         <div class="section-header">
           <h2>{{ $t('home.techTitle') }}</h2>
