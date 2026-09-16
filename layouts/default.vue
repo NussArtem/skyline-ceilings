@@ -20,20 +20,29 @@ const route = useRoute();
 const { init, destroy } = useScrollAnimations();
 
 const initializeAnimations = () => {
-  // Уничтожаем старые наблюдатели перед инициализацией новых
   destroy();
-  
-  // Небольшая задержка для того, чтобы DOM полностью загрузился
   setTimeout(() => {
     init();
   }, 150);
 };
 
+const onImageError = (event) => {
+  const img = event.target;
+  if (!(img instanceof HTMLImageElement)) return;
+  const src = img.getAttribute('src') || '';
+  if (!src.startsWith('/images/')) return;
+  const retries = Number(img.dataset.retry || '0');
+  if (retries >= 2) return;
+  img.dataset.retry = String(retries + 1);
+  const clean = src.split('?')[0];
+  img.src = `${clean}?v=${Date.now()}`;
+};
+
 onMounted(() => {
   initializeAnimations();
+  document.addEventListener('error', onImageError, true);
 });
 
-// Переинициализируем анимации при изменении маршрута
 watch(
   () => route.path,
   async () => {
@@ -44,5 +53,6 @@ watch(
 
 onBeforeUnmount(() => {
   destroy();
+  document.removeEventListener('error', onImageError, true);
 });
 </script>

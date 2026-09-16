@@ -12,9 +12,6 @@ export default defineNuxtConfig({
       isCustomElement: () => false,
     },
   },
-  vite: {
-    assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg'],
-  },
   // @ts-expect-error - i18n module adds this option
   i18n: {
     locales: [
@@ -34,7 +31,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'SkyLine Ceilings - Тканевые потолки Descor и HEYtex',
+      title: 'SkyLine — Concealed doors',
       htmlAttrs: {
         lang: 'es',
       },
@@ -44,14 +41,15 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'Премиальные тканевые потолки Descor и HEYtex. Современные решения для интерьера: теневые, парящие, многоуровневые потолки, световые решения.',
+            'SkyLine — puertas de instalación oculta. Puertas al ras de la pared sin molduras: para pintar, con acabado y con cristal.',
         },
         {
           name: 'keywords',
-          content: 'тканевые потолки, Descor, HEYtex, натяжные потолки, потолки Испания',
+          content:
+            'puertas ocultas, puertas de instalación oculta, concealed doors, двери скрытого монтажа, SkyLine',
         },
         { property: 'og:type', content: 'website' },
-        { property: 'og:site_name', content: 'SkyLine Ceilings' },
+        { property: 'og:site_name', content: 'SkyLine' },
         { name: 'robots', content: 'index, follow' },
       ],
       link: [{ rel: 'canonical', href: 'https://skylineceilings.com' }],

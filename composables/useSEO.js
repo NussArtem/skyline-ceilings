@@ -1,13 +1,12 @@
-export const useSEO = (titleKey, descriptionKey, imagePath = '/images/hero-ceiling.jpg') => {
+export const useSEO = (titleKey, descriptionKey, imagePath = '/images/hero-doors.jpg') => {
   const { t } = useI18n()
   const route = useRoute()
-  const config = useRuntimeConfig()
   
   const baseUrl = 'https://skylineceilings.com'
   const currentUrl = `${baseUrl}${route.path}`
   
   useHead({
-    title: () => `${t(titleKey)} | SkyLine Ceilings`,
+    title: () => `${t(titleKey)} | SkyLine`,
     meta: [
       {
         name: 'description',
@@ -15,7 +14,7 @@ export const useSEO = (titleKey, descriptionKey, imagePath = '/images/hero-ceili
       },
       {
         property: 'og:title',
-        content: () => `${t(titleKey)} | SkyLine Ceilings`,
+        content: () => `${t(titleKey)} | SkyLine`,
       },
       {
         property: 'og:description',
@@ -39,7 +38,7 @@ export const useSEO = (titleKey, descriptionKey, imagePath = '/images/hero-ceili
       },
       {
         name: 'twitter:title',
-        content: () => `${t(titleKey)} | SkyLine Ceilings`,
+        content: () => `${t(titleKey)} | SkyLine`,
       },
       {
         name: 'twitter:description',

@@ -33,3 +33,6 @@ build/
 # Nuxt generated files
 .nuxt/
 .nuxt
+.output/
+.u2net/
+.env*.local

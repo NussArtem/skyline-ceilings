@@ -1,7 +1,7 @@
 <template>
   <div class="cta-button">
     <button class="btn-cta" @click="openContactForm">
-      {{ $t('common.callMeasurer') }}
+      {{ $t('common.contactUs') }}
     </button>
   </div>
 </template>

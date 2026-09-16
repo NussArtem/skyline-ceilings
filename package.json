@@ -1,7 +1,7 @@
 {
   "name": "skyline-ceilings",
   "version": "1.0.0",
-  "description": "SkyLine Ceilings website",
+  "description": "SkyLine — concealed doors website",
   "private": true,
   "type": "module",
   "scripts": {
